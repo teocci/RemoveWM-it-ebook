@@ -1,5 +1,25 @@
 #!/usr/bin env python
-# __author__ = 'ShadonSniper'
+# https://github.com/ShadonSniper/RemoveWatermark
+# https://gist.github.com/Daxda/9939745
+
+# Author    : Teocci
+# Date      : 12.21.2016
+# WTF       : Remove it-ebooks.info watermarks on pdf file.
+#             ShadonSniper's solution doesn't handle
+#               /Type /Annot
+#               /Subtype /Link
+#               /Rect [ 111 19 195 7 ]
+#               /Border [ 0 0 0 ]
+#               /A <<
+#               /Type /Action
+#               /S /URI
+#               /URI (http://www.it-ebooks.info/)
+#               >>
+#             and Daxda's solution doesn't handle
+#               BT
+#               1 0 0 1 0 0 Tm
+#               (www.it-ebooks.info)Tj
+#               ET
 import os
 import sys
 import binascii
