@@ -34,20 +34,15 @@ def remove_watermark(path):
     return pdf_bin_data
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    requiredNamed = parser.add_argument_group('Mandatory arguments')
-    requiredNamed.add_argument("-F", "--file", dest='filepath', action="store", help='Specify absolute path of pdf file')
-    parser.add_argument('--version', action='version', version='%(prog)s 1.0')
-    args = parser.parse_args()
-    filepath = args.filepath
+def main(arguments):
+    filepath = arguments.filepath
     if filepath is None:
         parser.print_help()
         exit(0)
     if os.path.exists(filepath) and os.path.isabs(filepath):
-        newFile = 'new_' + os.path.split(filepath)[1]
+        new_file = 'new_' + os.path.split(filepath)[1]
         try:
-            with open(newFile, 'wb') as f:
+            with open(new_file, 'wb') as f:
                 f.write(remove_watermark(filepath))
                 f.close()
                 print 'Watermark removal done!'
@@ -55,3 +50,13 @@ if __name__ == "__main__":
             sys.stderr.write("Problem when writing file.")
     else:
         raise ValueError("Invalid path or is not a file.")
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    requiredNamed = parser.add_argument_group('mandatory arguments')
+    requiredNamed.add_argument("-F", "--file", dest='filepath', action="store",
+                               help='Specify absolute path of pdf file')
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+    args = parser.parse_args()
+    main(args)
